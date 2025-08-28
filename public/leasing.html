@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Leasing — Tarek Zuabi INC</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <nav class="nav">
+    <div class="brand">Tarek Zuabi INC.</div>
+    <div>
+      <a href="/">Main Menu</a>
+      <a href="/leasing.html">Leasing</a>
+      <a href="/about.html">About Us</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <section class="section">
+      <h1>Leasing & Purchase</h1>
+
+      <form id="leasingForm">
+        <div class="order-controls">
+          <label>Customer Name
+            <input type="text" id="customer_name" required>
+          </label>
+          <label>Email
+            <input type="email" id="email" required>
+          </label>
+          <label>Phone
+            <input type="text" id="phone">
+          </label>
+          <label>Order Type
+            <select id="order_type">
+              <option value="rent" selected>Lease (Rent)</option>
+              <option value="buy">Purchase</option>
+            </select>
+          </label>
+          <label>Start Date (Lease)
+            <input type="date" id="start_date">
+          </label>
+          <label>End Date (Lease)
+            <input type="date" id="end_date">
+          </label>
+        </div>
+
+        <!-- vehicle list renders here -->
+        <div id="leasingList" class="section"></div>
+
+        <!-- totals + submit -->
+        <div id="totals" class="section"></div>
+        <input type="submit" value="Submit Request">
+        <div id="leaseMsg"></div>
+      </form>
+    </section>
+  </div>
+
+  <!-- Load page-specific JS last -->
+  <script src="js/leasing.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tarek Zuabi INC</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <nav class="nav">
+    <div class="brand">Tarek Zuabi INC.</div>
+    <div>
+      <a href="/">Main Menu</a>
+      <a href="/leasing.html">Leasing</a>
+      <a href="/about.html">About Us</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <section class="section">
+      <h1>Contact Us</h1>
+
+      <form id="contactForm">
+        <label>Name
+          <input type="text" name="name" required />
+        </label>
+        <label>Email
+          <input type="email" name="email" required />
+        </label>
+        <label>Message
+          <textarea name="message" required></textarea>
+        </label>
+        <input type="submit" value="Send" />
+        <div id="contactMsg" style="margin-top:8px;"></div>
+      </form>
+    </section>
+  </div>
+
+  <!-- Put the script AFTER the form so the elements exist -->
+  <script type="module">
+    const form = document.getElementById('contactForm');
+    const msg  = document.getElementById('contactMsg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.textContent = '';
+
+      const payload = {
+        name: form.elements.name.value.trim(),
+        email: form.elements.email.value.trim(),
+        message: form.elements.message.value.trim(),
+      };
+
+      if (!payload.name || !payload.email || !payload.message) {
+        msg.style.color = 'red';
+        msg.textContent = 'Please fill all fields.';
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+
+        if (res.ok && data.ok) {
+          msg.style.color = 'green';
+          msg.textContent = 'Message sent!';
+          form.reset();
+        } else {
+          msg.style.color = 'red';
+          msg.textContent = data.error || 'Failed to send message.';
+        }
+      } catch (err) {
+        msg.style.color = 'red';
+        msg.textContent = 'Network error.';
+      }
+    });
+  </script>
+</body>
+</html>
